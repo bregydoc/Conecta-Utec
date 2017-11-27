@@ -95,12 +95,11 @@ func main() {
 		})
 	})
 
-	defer hot.StopHotspot()
 
 	go func() {
 		time.Sleep(2*time.Second)
-		OpenBrowser("http://localhost:5400")
+		OpenBrowser("http://localhost:5600")
 	}()
 
-	app.Run(iris.Addr(":5400"))
+	app.Run(iris.Addr(":5600"))
 }
