@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Vuetify</title>
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <link href="./statics/styles.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</head>
+<body class="app">
+<nav class="navbar">
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo logo-conecta center">Conecta UTEC</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+        </ul>
+    </div>
+</nav>
+<div>
+
+    <div class="row center" id="steps" style="margin-top: 10px; padding: 10px">
+        <div class="col s12 m12 l4">
+            <div class="step-card">
+                <div class="step-title"> Paso 1 </div>
+                <br/>
+                <div style="margin: 20px">
+                    Instrucciones de como activar la red compartida
+                </div>
+                <br/>
+                ...
+            </div>
+
+
+        </div>
+        <div class="col s12 m12 l4" style="padding: 10px">
+            <div class="step-card">
+                <div class="step-title"> Paso 2 </div>
+                <br/>
+                <div class="step-text">
+                    A continuación introduzca un nombre y una contraseña para la red:
+                    <div style="font-family: Quicksand,serif; font-size: 10px; padding-left: 30px; padding-right: 30px; color: #3D525A">
+                        Recuerda que la contraseña tiene que tener al menos 8 caracteres.
+                    </div>
+                </div>
+                <br/>
+
+                <div style="padding-left: 30px; padding-right: 30px">
+                    <div class="input-field">
+                        <input id="name" type="text" class="validate">
+                        <label for="last_name">Nombre de de red</label>
+                    </div>
+                </div>
+                <div style="padding-left: 30px; padding-right: 30px">
+                    <div class="input-field">
+                        <input id="password" type="text" class="validate">
+                        <label for="last_name">Contraseña</label>
+                    </div>
+                </div>
+                <br/>
+                <button class="btn waves-effect waves-light" type="submit" name="action" id="config-btn">
+                    Guardar cambios
+                    <i class="material-icons right">wifi</i>
+                </button>
+
+            </div>
+
+        </div>
+        <div class="col s12 m12 l4">
+            <div class="step-card">
+                <div class="step-title"> Paso 3 </div>
+                <br/>
+                <div class="step-text">
+                    Haz click en activar hotspot y enjoy it!
+
+                </div>
+                <br/>
+                <button class="btn waves-effect waves-light" type="submit" name="action" id="activate-btn">
+                    Activar Hotspot
+                    <i class="material-icons right">wifi_tethering</i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    // Materialize.fadeInImage('#steps')
+    $("#config-btn").click(function () {
+        const name = $("#name").val();
+        const password = $("#password").val();
+
+        if (password.length < 8) {
+            Materialize.toast('Contraseña incorrecta, recuerde que debe tener más de 8 caracteres', 2000);
+            return;
+        }
+
+        $.post( "/api/configure", { name: name, password: password }).done(
+                function (data) {
+                    console.log(data)
+                    if (data.status==='ok') {
+                        $("#config-btn").addClass('disabled');
+                    }
+                }
+        );
+    });
+
+    $("#activate-btn").click(function () {
+        $.post( "/api/activate").done(
+                function (data) {
+                    console.log(data)
+                    if (data.status==='error') {
+                        Materialize.toast('No se pudo activar el hostpot, por favor comuniquese con el administrador', 2000);
+                    }
+                }
+        );
+    })
+</script>
+</body>
+</html>

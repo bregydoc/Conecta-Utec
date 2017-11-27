@@ -1,0 +1,102 @@
+/** CSS Styles */
+.app {
+
+    width: 100%;
+    height: -webkit-fill-available;
+
+    background: linear-gradient(54.89deg, #7EE0BB 0%, #907CFF 100%);
+}
+
+.card {
+    background: #FFFFFF;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+}
+
+.flag {
+    margin-top: 30px;
+}
+
+.title-text {
+    font-family: Quicksand, serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 48px;
+
+    color: #1C1F36;
+}
+
+.subtitle-text {
+    font-family: Quicksand, serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    font-size: 20px;
+
+    color: #1C1F36;
+}
+
+.init-button {
+    font-family: Quicksand, serif;
+    color: #FF3056;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+}
+.agree {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.terms-title {
+    font-family: Quicksand, serif;
+    color: #FF3056;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.terms-and-conditions {
+
+    font-size: 12px;
+    height:120px;width:100%;overflow:auto; text-align: justify
+}
+
+.logo-conecta {
+    font-family: Quicksand, serif;
+    font-size: 10px;
+}
+.navbar {
+    background-color: #1BA6BF;
+}
+
+.step-title {
+    padding-top: 20px;
+    font-family: Quicksand, serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 28px;
+
+    color: #1C1F36;
+}
+
+.step-card {
+    background: #FFFFFF;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-bottom: 20px;
+}
+
+.step-text {
+    font-family: Quicksand, serif;
+    padding: 10px;
+}
+
+#config-btn {
+    background-color: #FF3056;
+}
+
+#activate-btn {
+    background-color: #FF3056;
+
+}
