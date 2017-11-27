@@ -12,6 +12,8 @@ type HotspotWrapper struct {
 	ActiveCommand string
 	StopCommand string
 
+	SSID string
+	Password string
 }
 
 func (hotspot *HotspotWrapper) FillInfo(ssid, password string ) {
@@ -19,6 +21,10 @@ func (hotspot *HotspotWrapper) FillInfo(ssid, password string ) {
 }
 
 func (hotspot *HotspotWrapper) ConfigProperties(ssid, password string ) {
+
+	hotspot.SSID = ssid
+	hotspot.Password = password
+
 	if strings.Contains(hotspot.ConfigCommand, "%") {
 		hotspot.ConfigCommand = fmt.Sprintf(hotspot.ConfigCommand, ssid, password)
 	}
@@ -51,7 +57,28 @@ func (hotspot *HotspotWrapper) CheckPcSupport () bool {
 
 }
 
-func (hotspot *HotspotWrapper) ActivateHotspot() error{
+func (hotspot *HotspotWrapper) SecondConfig() error {
+	command1 := "NETSH WLAN set hostednetwork ssid=" + hotspot.SSID
+	command2 := "NETSH WLAN set hostednetwork key=" + hotspot.Password
+
+	chunkCommand1 := strings.Split(command1, " ")
+	c1 := exec.Command(chunkCommand1[0], chunkCommand1[1:]...)
+
+	if err := c1.Run(); err != nil {
+		return err
+	}
+
+	chunkCommand2 := strings.Split(command2, " ")
+	c2 := exec.Command(chunkCommand2[0], chunkCommand2[1:]...)
+
+	if err := c2.Run(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (hotspot *HotspotWrapper) ActivateHotspot() error {
 	chunks := strings.Split(hotspot.ActiveCommand, " ")
 	c := exec.Command(chunks[0], chunks[1:]...)
 	err := c.Run()
@@ -70,6 +97,8 @@ func (hotspot *HotspotWrapper) StopHotspot() error{
 	}
 	return nil
 }
+
+
 
 func NewHotspotWrapper(os string) *HotspotWrapper {
 	if os == "windows" {

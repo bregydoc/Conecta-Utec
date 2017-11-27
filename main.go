@@ -43,7 +43,26 @@ func main() {
 	})
 
 	app.Post("/api/activate", func(c iris.Context) {
-		err := hot.ActivateHotspot()
+		err := hot.StopHotspot()
+		if err != nil {
+			c.JSON(iris.Map{
+				"status": "error",
+				"message": err.Error(),
+			})
+			return
+		}
+
+		err = hot.SecondConfig()
+		if err != nil {
+			c.JSON(iris.Map{
+				"status": "error",
+				"message": err.Error(),
+			})
+			return
+		}
+
+		err = hot.ActivateHotspot()
+
 		if err != nil {
 			c.JSON(iris.Map{
 				"status": "error",
@@ -77,4 +96,3 @@ func main() {
 	app.Run(iris.Addr(":5400"))
 
 }
-
