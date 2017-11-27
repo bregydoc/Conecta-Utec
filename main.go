@@ -95,6 +95,8 @@ func main() {
 		})
 	})
 
+	defer hot.StopHotspot()
+
 	go func() {
 		time.Sleep(2*time.Second)
 		OpenBrowser("http://localhost:5400")
