@@ -110,7 +110,7 @@
 
         $.post( "/api/configure", { name: name, password: password }).done(
                 function (data) {
-                    console.log(data)
+                    console.log(data);
                     if (data.status==='ok') {
                         $("#config-btn").addClass('disabled');
                     }
@@ -120,12 +120,15 @@
 
     $("#activate-btn").click(function () {
         $.post( "/api/activate").done(
-                function (data) {
-                    console.log(data)
-                    if (data.status==='error') {
-                        Materialize.toast('No se pudo activar el hostpot, por favor comuniquese con el administrador', 2000);
-                    }
+            function (data) {
+                console.log(data);
+                if (data.status==='error') {
+                    Materialize.toast('No se pudo activar el hostpot, por favor comuniquese con el administrador', 2000);
+                }else if (data.status==='ok') {
+                    Materialize.toast('Ya tienes tu Hotspot activado, disfrutalo', 2000);
+                    $("#config-btn").addClass('disabled');
                 }
+            }
         );
     })
 </script>

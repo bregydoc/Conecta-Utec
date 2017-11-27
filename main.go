@@ -4,6 +4,7 @@ import (
 	"github.com/kataras/iris"
 	"./hotspot"
 	"log"
+	"time"
 )
 
 var hot *hotspot.HotspotWrapper
@@ -75,6 +76,8 @@ func main() {
 			"status": "ok",
 			"message": "",
 		})
+
+
 	})
 
 	app.Post("/api/stop", func(c iris.Context) {
@@ -92,7 +95,10 @@ func main() {
 		})
 	})
 
+	go func() {
+		time.Sleep(2*time.Second)
+		OpenBrowser("http://localhost:5400")
+	}()
 
 	app.Run(iris.Addr(":5400"))
-
 }
